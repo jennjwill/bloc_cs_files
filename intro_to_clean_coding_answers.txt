@@ -31,38 +31,38 @@ A: It's not bad, but I think it can be better. I am wondering though if PRINT su
 
 
   FUNCTION calcPercent(sum, total)
-    IF total = 0 
+    IF total = 0 THEN
         PRINT "Sorry, cannot divide by 0"
       ELSE PRINT sum/total * 100
     ENDIF
   ENDFUNCTION
 
-5. a. ???????recheck this one
+5. a. 
 
 FUNCTION printSubtotal(subTotal, discountRate)
     PRINT "Your total due is " + (subTotal * discountRate + (subtotal * tax)
 ENDFUNCTION
 
-FUNCTION takePayment(amount)
-    IF paymentType == 'CASH'
+FUNCTION takePayment(amount, type)
+    IF type == 'CASH' THEN
       PRINT ("Change due: " + amount) - (CALL printSubtotal())
-    ELSE IF paymentType == 'CREDIT CARD'
+    ELSE IF type == 'CREDIT CARD' THEN
       PRINT "Your credit card has been charged: " + (CALL printSubtotal())
     ENDIF 
 ENDFUNCTION
 
-5. b. 
+5. b. (Am I still using THEN unnecessarily?)
 
 FUNCTION accountStatus(guest)
-  IF guest.hasOverdueBooks OR guest.outstandingFees
+  IF guest.hasOverdueBooks OR guest.outstandingFees THEN
     RETURN guest.accountActive == FALSE
   ENDIF
 ENDFUNCTION
 
 FUNCTION checkoutBook(book, guest)
   IF guest.accountActive
-    APPEND book to guest.books AND 
-    SET book.status to "Checked Out" AND 
+    APPEND book to guest.books THEN 
+    SET book.status to "Checked Out" THEN
     PRINT "Your books have been issued."
   ENDIF 
 ENDFUNCTION
@@ -76,11 +76,11 @@ CLASS BankAccount
 FUNCTION deposit(amount)
   SET balance === balance + amount 
       IF 
-        NOT(customer.hasCreditCard)
+        NOT(customer.hasCreditCard) THEN
         CALL offerCreditCard
       ENDIF
       IF 
-        NOT(customer.hasCheckingAccount)
+        NOT(customer.hasCheckingAccount) THEN
         CALL offerCheckingAccount
       ENDIF 
   PRINT balance
@@ -90,17 +90,71 @@ FUNCTION withdraw(amount)
   IF balance > amount 
   SET balance === balance - amount 
       IF 
-        NOT(customer.hasCreditCard)
+        NOT(customer.hasCreditCard) THEN
         CALL offerCreditCard
       ENDIF
       IF 
-        NOT(customer.hasCheckingAccount)
+        NOT(customer.hasCheckingAccount) THEN
         CALL offerCheckingAccount
       ENDIF 
   PRINT balance 
 ENDFUNCTION
 
 
-  
+PROGRAMMING QUESTIONS:
+
+6. Square:
+
+var array = [10, 1, 4, 6, 1, 1, 2];
+
+function sumOrSquare(numbers) {
+  let total = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    total += numbers[i];
+  }
+  let squareRoot = Math.sqrt(total);
+  if (squareRoot - Math.floor(squareRoot) === 0) {
+    return squareRoot;
+  } else {
+    return total;
+  }
+
+}
+console.log(sumOrSquare(array));
+
+
+7. Duplicate:
+
+
+function hasDuplicates(array) {
+  let valuesSoFar = [];
+  for (let i=0; i < array.length; i++) {
+    if (valuesSoFar.indexOf(array[i]) !== -1) {
+      return true;
+    }
+    valuesSoFar.push(array[i]);
+  }
+  return false;
+}
+
+
+8. Anagram:
+
+function toArrayReverse(str) {
+  return str.split('').reverse(); 
+}
+
+function isAnagram(word) {
+  let arrayWord = word.split('');
+  let reversedWord = toArrayReverse(word);
+
+  for (let i = 0; i < arrayWord.length; i++) {
+    if (arrayWord[i] !== reversedWord[i]) {
+      return false;
+    } 
+  }
+  return true;
+}
+
 
 
