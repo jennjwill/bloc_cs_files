@@ -1,0 +1,106 @@
+EXERCISES:
+
+1. What clean code is & why it's important.
+
+A: Clean code functions like good communication: it fosters understanding, is efficient, and effective. Clean code is maintainable over time, using the single responsibility principle as much as possible, and not over-engineered. It's DRY (reusable & not repetitive) and self-documenting. It's nested well, making it easier to read and understand the flow of logic.
+
+2. Read Toyota article--what's another common item that relies on computers/code?
+
+A: Yesterday Target's entire checkout system crashed and was down for several hours. Customers aren't very understanding about such things, and I imagine Target lost lots of money in those few hours. Stores with computer-checkout are rendered dysfunctional when the system crashes, but even small errors in the code could create accounting and privacy problems that go unnoticed when things are functioning.
+
+The Toyota issue could've cost people their lives, but bad code in banking, insurance, and health care management networks & apps could easily be financially devastating to people.
+
+3. Is the following clean code? Why or why not?
+
+A: No. Clean code wouldn't require so many comments--should self-document. Naming conventions/rules of thumb are not followed. The variables (x, y, z) are too vague. Name of the function is too vague. Also var x seems unnecessary.
+
+Refactored:
+
+
+FUNCTION convertTemp(number)
+  IF number is fahrenheit 
+    PRINT (number - 32) * (5/9) + "C"
+  ELSE 
+    PRINT number * 1.8 + 32 + "F"
+  ENDIF
+
+
+4. clean code? why or why not:
+
+A: It's not bad, but I think it can be better. I am wondering though if PRINT suggests a RETURN or if RETURN needs to be stated when needed. (& if that's why SET was used in the question. Should I say "PRINT & RETURN" on line 36?)
+
+
+  FUNCTION calcPercent(sum, total)
+    IF total = 0 
+        PRINT "Sorry, cannot divide by 0"
+      ELSE PRINT sum/total * 100
+    ENDIF
+  ENDFUNCTION
+
+5. a. ???????recheck this one
+
+FUNCTION printSubtotal(subTotal, discountRate)
+    PRINT "Your total due is " + (subTotal * discountRate + (subtotal * tax)
+ENDFUNCTION
+
+FUNCTION takePayment(amount)
+    IF paymentType == 'CASH'
+      PRINT ("Change due: " + amount) - (CALL printSubtotal())
+    ELSE IF paymentType == 'CREDIT CARD'
+      PRINT "Your credit card has been charged: " + (CALL printSubtotal())
+    ENDIF 
+ENDFUNCTION
+
+5. b. 
+
+FUNCTION accountStatus(guest)
+  IF guest.hasOverdueBooks OR guest.outstandingFees
+    RETURN guest.accountActive == FALSE
+  ENDIF
+ENDFUNCTION
+
+FUNCTION checkoutBook(book, guest)
+  IF guest.accountActive
+    APPEND book to guest.books AND 
+    SET book.status to "Checked Out" AND 
+    PRINT "Your books have been issued."
+  ENDIF 
+ENDFUNCTION
+
+
+5. c. 
+
+
+CLASS BankAccount
+
+FUNCTION deposit(amount)
+  SET balance === balance + amount 
+      IF 
+        NOT(customer.hasCreditCard)
+        CALL offerCreditCard
+      ENDIF
+      IF 
+        NOT(customer.hasCheckingAccount)
+        CALL offerCheckingAccount
+      ENDIF 
+  PRINT balance
+ENDFUNCTION
+
+FUNCTION withdraw(amount)
+  IF balance > amount 
+  SET balance === balance - amount 
+      IF 
+        NOT(customer.hasCreditCard)
+        CALL offerCreditCard
+      ENDIF
+      IF 
+        NOT(customer.hasCheckingAccount)
+        CALL offerCheckingAccount
+      ENDIF 
+  PRINT balance 
+ENDFUNCTION
+
+
+  
+
+
