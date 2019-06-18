@@ -1,0 +1,78 @@
+EXERCISES:
+
+1. Line of people at an amusement park.
+1.a) array input
+1.b) insert Mary at end of Line
+
+A:
+
+var line = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+
+function addPerson(person) {
+	line.push(person);
+	return line;
+}
+console.log(addPerson("Mary"))
+
+1.c)find Josh, returns 2: 
+
+A:
+
+line.indexOf("Josh");
+//is the simplest line, but you can also find Josh w the following function in 1d:
+
+1.d)find Emily & what should that return:
+
+A:
+
+function findAPerson(name) {
+	let location = line.indexOf(name);
+	if (location !== -1) {
+		return location;
+	} else if (location == -1) {
+		return name + " is not in line."
+		}
+}
+
+console.log(findAPerson("Emily"));
+
+1.e)Ava lets Melissa cut in front of her:
+
+A:
+
+line.splice(1, 0, "Melissa");
+
+1.f)Patrick wants to leave the line, delete him:
+
+A:
+
+line.splice(3, 1);
+
+
+2. another real-world example that you could model using a data structure:
+
+A: For years, I worked in archaology labs cataloguing and analyzing artifacts. In one exceptionally well-run lab, we used a database (Access: it was the 90's & early 2000's) to catalog artifacts. My boss had structured data hierarchies to reflect current scientific models so researchers could easily access(LOL) info-rich data. I"m still wowed by that highly functional database and the skill that went into its production. I tried to recreate it later in a smaller lab and pretty much failed. My database was functional but messy.
+
+3.
+
+Having used firebase with JavaScript now in bloc chat, I'm guessing any database would break down into objects with keys/values & we could manipulate the data from there.
+
+A tiny piece of a basic model would be something like this, but it's hard to draw in txt:
+
+     artifact = pot sherd
+              |
+        ______|____________________________________________
+       |                      |                          |
+       |                      |                          |
+    LOCATION:                TYPE:                     WEAR:
+  site: "12Hr52",           temper: "grit",           wear: "burned"
+  GPS: "coordinates";       decoration: "stamped",
+  cm depth: 5                      |
+                                   |
+                                 STAMPING:
+                                     |
+                                     |
+                                  stamp: "fiber"
+
+Someone could go in and search for any of the keys and/or values and look at the connected items from there. They could run counts, build tables, graphs, etc., by querying data. Data could be compared across locations, time, and more. Much faster than reading thousands of reports and looking through thousands of boxes of artifacts. 
+
