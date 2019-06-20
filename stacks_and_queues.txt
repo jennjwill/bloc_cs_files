@@ -22,9 +22,6 @@ A:
 
 function reverse(string) {
   let stack = string.split('');
-  for (let i = 0; i < stack.length; i++) {
-    stack.push[i];
-  }
   let reversed = '';
   while (stack.length > 0) {
     reversed += stack.pop(); 
@@ -41,21 +38,19 @@ console.log(reverse("hello"));
 A: I'm not 100% sure I'm understanding this question. I understand how LIFOs & FIFOs differ--but were we supposed to build a queue first and then remove items from it? I can't tell if I'm over or underthinking this. What's the internal list?
 
 
-FUNCTION addToQueue(item)
-    FOR each iteration 
-      CALL queue.pop
-    ENDFOR
+FUNCTION mirrorLIFE(queue)
+    INIT chopped = queue.slice(-1) //iterates over the array and slices/returns the last item
+    RETURN chopped 
 ENDFUNCTION
       
 var list = [11, 12, 13, 14, 15, 16, 17];
 
 function mirrorLIFO(queue) {
-  queueItem = 0;
-  for (let i = 0; i < queue.length; i++) {
-    queueItem = queue.pop();
-    return queueItem;
-  }
+  chopped = queue.slice(-1);
+  return chopped;
 }
+
+
 
 DELETING items
 
