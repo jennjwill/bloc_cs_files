@@ -1,0 +1,76 @@
+EXERCISES
+
+1. What are some pros and cons of using linked lists instead of arrays?
+
+A:  Large arrays take up lots of memory becuase they require consecutive locations. This makes arrays relatively expensive.
+
+Linked lists rely on nodes that contain data, and the nodes don't have to be stored consecutively. The OS can use any available memory to store individual nodes. 
+
+A con of linked lists is the relatively inefficiency of accessing an element/node in the list, which have to be accessed in order. Array indexes allow for immediate access of array elements. 
+
+2. Come up with a real world example of a linked list.
+
+A:  I didn't have any idea, but after googling: the history section of web browsers. The history is a linked list of pages visited that you can go backwards through & fetch a previous node's data.
+
+If this question is looking for a more abstract example, a train: with the engine as the head, the caboose as the last node, cars as node values, and connectors between the cars as links to previous & next nodes.
+
+
+PROGRAMMING QUESTIONS
+
+1. explain the bug & implement the method functionally
+
+A:
+
+FUNCTION push(element)
+  CREATE node
+  SET node.value TO element
+  SET node.next TO null
+
+  IF the head node does not exist 
+    THEN SET head to node
+  ELSE
+    SET current to head 
+    SET current.next to node  //skipped WHILE
+  END IF
+END FUNCTION
+
+A couple of things seem off to me. 
+1)Can you add to a linked list that doesn't have a head? Doesn't it mean that the list hasn't been created yet?
+2)current = head;
+  current.next = node
+
+function push(element) {
+  var node = {
+    value: element,
+    next: null
+  }
+  if(!this.head) {
+    this.head = node;
+  }
+  else {
+    current = this.head;
+    while(current.next) {
+      current = current.next;
+    }
+    current.next = node;
+  }
+}
+
+//create a list and push values into it
+
+var sll = new LinkedList();
+
+sll.push(2);
+sll.push(3);
+sll.push(4);
+
+
+2.
+A: 
+
+FUNCTION removeDuplicates(list) 
+  WHILE current.node.next != null
+    current.node.val == current.node.next.val //cut .next one THEN
+
+    jay is helping w pseudocode
+
