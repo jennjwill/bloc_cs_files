@@ -17,9 +17,9 @@ If this question is looking for a more abstract example, a train: with the engin
 
 PROGRAMMING QUESTIONS
 
-1. explain the bug & implement the method functionally
+1. explain the bugin the following pseudocode & implement the method functionally
 
-A:
+A: The pseudocode skips the 'while current.next is true,' to allow for moving along the node list to the end to the tail (where the new node gets pushed).
 
 FUNCTION push(element)
   CREATE node
@@ -30,16 +30,13 @@ FUNCTION push(element)
     THEN SET head to node
   ELSE
     SET current to head 
-    SET current.next to node  //skipped WHILE
+    SET current.next to node  //skipped WHILE loop
   END IF
 END FUNCTION
 
-A couple of things seem off to me. 
-1)Can you add to a linked list that doesn't have a head? Doesn't it mean that the list hasn't been created yet?
-2)current = head;
-  current.next = node
 
-function push(element) {
+
+LinkedList.prototype.push = function (element) {
   var node = {
     value: element,
     next: null
@@ -65,12 +62,152 @@ sll.push(3);
 sll.push(4);
 
 
-2.
-A: 
+2. remove duplicates from a singly linked list
+
+A: I *think* this one is working? I put the push function I used to build and tests in so you can see the full thing. 
 
 FUNCTION removeDuplicates(list) 
-  WHILE current.node.next != null
-    current.node.val == current.node.next.val //cut .next one THEN
+  LOOP over the list
+  Check if value has been in stored values
+  IF not
+    store the values of node
+  ELSE if yes
+    remove the node 
+  RETURN list
 
-    jay is helping w pseudocode
+
+
+LinkedList.prototype.pushed = function(element) {
+  var node = {
+    value: element,
+    next: null
+  }
+  if(!this.head) {
+    this.head = node;
+  }
+  else {
+    current = this.head;
+    while(current.next) {
+      current = current.next;
+    }
+    current.next = node;
+  }
+}
+
+
+LinkedList.prototype.removeDuplicates = function(list) {
+  var currentNode = this.head;
+  
+  while (currentNode && currentNode.next) {
+    if (currentNode.value === currentNode.next.value) {
+      currentNode.next = currentNode.next.next;
+  } else {
+    currentNode = currentNode.next;
+    }
+  }
+  return list;
+}
+
+var LL = new LinkedList();
+
+LL.pushed(1);
+LL.pushed(1);
+LL.pushed(1);
+LL.pushed("hi");
+LL.pushed(3);
+LL.pushed("hi");
+LL.pushed(6);
+LL.pushed(1);
+
+console.log(LL.removeDuplicates(LL));
+
+
+    
+
+
+3. reverse a singly linked list
+
+A:
+
+FUNCTION reverse(list) 
+  IF no head or no head.next exist
+    RETURN list
+  ENDIF
+
+  INIT empty array
+  LOOP over list
+  PUSH nodes into array
+
+  WHILE current.next exists
+    POP nodes off to create node in new list
+  END while
+
+  RETURN reversed list 
+
+  //I'm not exactly sure if this one is working. Though I've been taking a Udemy course on linked lists all weekend, I had to complile some sample code from online to figure out how to reverse a list. I don't yet understand if this gets it back to a list or pops nodes into another array. 
+
+  MY console output here seems to only list one node, even though I ultimately followed someone else's code specifically to reverse a list.
+
+  My instinct was to put the original list into an array, and then use array.reverse(), but I don't know exactly how to move from an array to a list, despite seeing a few stack overflow examples.
+
+  I'm sharing everything I used to create the list and function so you can see how I tried to test it:
+
+  
+function LinkedList() {
+  this.head = null;
+  this.tail = null;
+}
+
+function Node(value, next) {
+  this.value = value;
+  this.next = next;
+  this.prev = prev;  //yeah I know this should be a singly linked list, but in the class I took this weekend, we worked with the following addToHead function to create a list. I could change it to create a singly linked list (w no .prev) by using my above pushed function.
+}
+
+LinkedList.prototype.addToHead = function(value) {
+  var newNode = new Node(value, this.head, null);
+  if (this.head) this.head.prev = newNode; //if this.head exists (if there's already a head or nodes), then the prev pointer becomes newNode(which will be new head very soon)
+  else this.tail = newNode; //if the list is empty, set the list's tail pointer to newNode b/c it will be both the head and tail/only one in list
+  this.head = newNode;//happens regardless of if/else 
+};
+
+LinkedList.prototype.reverseLL = function(list) {
+  if (!list.head || !list.head.next) return list; //if head or head.next don't exist, just return the original list b/c it's the same reversed
+
+  var nodes = [];
+  current = list.head;
+  //push nodes to an array called 'nodes'
+  while(current) {
+    nodes.push(current);
+    current = current.next; //go on to next as current.next
+  }
+
+  var reversed = new LinkedList(); //creating a new list
+
+  reversed.head = nodes.pop();  //removes one node (in last position) at a time from the array created from original list
+  current = reversed.head;
+
+  var node = nodes.pop();
+
+  while(node) {
+    node.next = null;   //supposedly this line keeps node.next from taking its old next pointer with it
+    current.next = node;  //this whole chunk starts to confuse me. Also I'm not totally clear on why nodes.pop() has to occur 3x in the code.
+    current = current.next;  
+    node = nodes.pop();
+  }
+  return reversed;
+}
+
+var myLL = new LinkedList();
+
+myLL.addToHead(1);
+myLL.addToHead(2);
+myLL.addToHead(3);
+myLL.addToHead(4);
+
+console.log(myLL.reverseLL(myLL));
+
+
+
+
 
