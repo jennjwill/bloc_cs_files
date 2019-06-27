@@ -1,0 +1,291 @@
+EXERCISES:
+
+1. What is a hash table?
+
+A: a data structure that uses key/value pairs to store info. Each key must be unique & gets "hashed" so that it fits into an array.
+
+2. What is hashing?
+
+A: conversion from a key to a numerical index. A hash key is a specific, fixed length number called a hash code.
+
+3. How does a hash table store data?
+
+A: A hash code is used as a key and is sorted (with all the other hash codes using the same logic) into an internal array of a particular length. 
+
+4. How are hash tables & objects different?
+
+A: I wish I understood this more. Hash tables have a unique key and hold the same type of data. 
+
+Objects can bundle different types of data as properties together. 
+
+The only programming language I know is JavaScript and I think I'm getting confused b/c aren't hash tables objects in JS programming? I'd love/appreciate any clarifcation you can provide on this. 
+
+5. Would you use a hash table or object for the following:
+
+*list of pets & their unique names:
+-object--they already have a unique ID
+
+*name, age, bday of your best friend:
+-object
+
+*name & location of every company in a given city
+-hash table--lots of data which will change over time/ variable # of values. the city could be the key.
+
+*all the books checked out from library by an individual:
+-hash table--individual is the key, variable # of values
+
+*primary & secondary phone numbers of a contact:
+-object-unless there's a whole list of contacts, then a hash table?
+
+
+PROGRAMMING QUESTIONS
+
+1. Create a hash table that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers.
+
+
+
+function HashTable(size) {
+  this.buckets = Array(size);
+  this.numBuckets = this.buckets.length;
+};
+
+function HashNode(key, value, next) {
+  this.key = key;     //hashed phone#
+  this.value = value; //Customer
+  this.next = next || null;
+};
+
+HashTable.prototype.hash = function(key) {
+  var total = 0;
+  for (var i = 0; i < key.length; i++) {
+    total += key.charCodeAt(i);
+  }
+  var bucket = total % this.numBuckets;
+  return bucket;
+};
+
+HashTable.prototype.insert = function (key, value) {
+  var index = this.hash(key);
+  if (!this.buckets[index]) {
+    this.buckets[index] = new HashNode(key, value);
+  }
+  else if (this.buckets[index].key = key) {
+    this.buckets[index].value = value;
+  }
+  else {
+    var currentNode = this.buckets[index];
+    while(currentNode.next) {
+      if (currentNode.next.key === key) {
+        currentNode.next.value = value;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+    currentNode.next = new HashNode(key, value);
+  }
+};
+
+/*
+PSEUDOCODE FOR GET FUNCTION:
+
+INIT buckets = array of customer info hash table
+
+FUNCTION get(key)
+INIT index = CALL hash
+IF no data exists RETURN null
+ELSE
+  INIT currentNode = index of buckets
+  WHILE  currentNode exists
+    IF currentNode.key === key
+    RETURN currentNode.value
+    ENDIF
+  ENDWHILE
+  RETURN null if while loop finishes w no matches
+*/
+
+HashTable.prototype.get = function(key) {
+  var index = this.hash(key);
+  if(!this.buckets[index]) return null;
+  else {
+    var currentNode = this.buckets[index];
+    while (currentNode) {
+      if (currentNode.key === key) return currentNode.value;
+      currentNode = currentNode.next;
+    }
+    return null;
+  }
+};
+
+var myHT = new HashTable(30);
+
+myHT.insert('812-555-3232', ['Jess Green', '222 Winding Rd, Tempe, AZ 85283']);
+myHT.insert('444-444-4444', ['Joe Lee', '101 Awesome Lane, Los Angeles, CA 90210']);
+//myHT.insert();
+//myHT.insert();
+//myHT.insert();
+console.log(myHT.get('812-555-3232'));
+
+
+
+2. Create a hash table that allows a store owner to track their store's inventory and quantity.
+
+
+
+function HashTable(size) {
+  this.buckets = Array(size);
+  this.numBuckets = this.buckets.length;
+};
+
+function HashNode(key, value, next) {
+  this.key = key;
+  this.value = value;
+  this.next = next;
+};
+
+HashTable.prototype.hash = function(key) { 
+  var total = 0;
+  for (var i=0; i < key.length; i++) {
+    total += key.charCodeAt(i);
+  }
+  var bucket = total % this.numBuckets;
+  return bucket;
+};
+
+HashTable.prototype.insert = function(key, value) {
+  const index = this.hash(key);
+  if (!this.buckets[index]) {
+    this.buckets[index] = new HashNode(key, value);
+  }
+  else if (this.buckets[index].key = key) {
+    this.buckets[index].value = value;
+  }
+  else {
+    let currentNode = this.buckets[index];
+    while(currentNode.next) {
+      if (currentNode.next.key === key) {
+        currentNode.next.value = value;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+    currentNode.next = new HashNode(key, value);
+  }
+};
+
+
+/*
+PSEUDOCODE FOR GET FUNCTION
+
+FUNCTION get(key)
+INIT index = key from hash function
+IF no data exists RETURN null
+ELSE
+  INIT currentNode = buckets[index]
+  WHILE currentNode exists
+    IF currentNode.key === key
+    RETURN currentNode.value
+    END IF
+  END WHILE
+  RETURN null
+*/
+
+
+HashTable.prototype.get = function(key) {
+  let index = this.hash(key);
+  if(!this.buckets[index]) return null;
+  else {
+    let currentNode = this.buckets[index];
+    while (currentNode) {
+      if (currentNode.key === key) return currentNode.value;
+      currentNode = currentNode.next;
+    }
+    return null;
+  }
+};
+
+var myHT = new HashTable(30); //table starts with 30 spaces in the array for inventory items
+
+myHT.insert('rainbow pool float', 15);
+myHT.insert('flip flops', 20);
+myHT.insert('flip flops', 18);  //update inventory to 18
+myHT.insert('big straw hats', 10);
+myHT.insert('sunscreen SPF50', 100);
+
+//console.log(myHT);
+console.log(myHT.get('flip flops')); //call get to see # left in inventory
+
+
+
+3. Create a hash table that allows digital copies of newspapers to be entered and searched by publisher and publication date.
+
+
+//There are a couple of ways to read this question. If we are looking to search by both publisher AND publication date separately and return the other, I haven't gotten there. I don't understand how to set up two hash keys in one HashNode function. It doesn't make sense that we'd want to search for a newspaper pub and have every date available returned in a list. But I suspect this question is asking something more of me? *Is* there a way to make each item a searchable key? thanks.
+
+
+function HashTable(size) {
+  this.buckets = Array(size);
+  this.numBuckets = this.buckets.length;
+};
+
+function HashNode(key, value, next) {
+  this.key = key;
+  this.value = value;
+  this.next = next;
+};
+
+HashTable.prototype.hash = function(key) { 
+  let total = 0;
+  for (let i=0; i < key.length; i++) {
+    total += key.charCodeAt(i);
+  }
+  let bucket = total % this.numBuckets;
+  return bucket; 
+};
+
+HashTable.prototype.insert = function (key, value) {
+  let index = this.hash(key);
+  if (!this.buckets[index]) {
+    this.buckets[index] = new HashNode(key, value);
+  }
+  else if (this.buckets[index].key = key) {
+    this.buckets[index].value = value;
+  }
+  else {
+    let currentNode = this.buckets[index];
+    while(currentNode.next) {
+      if (currentNode.next.key === key) {
+        currentNode.next.value = value;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+    currentNode.next = new HashNode(key, value);
+  }
+};
+
+/*FUNCTION GET IS THE SAME AS IN FIRST TWO QUESTIONS, SO PSUEDOCODE IS THE SAME*/
+
+HashTable.prototype.get = function(key) {
+  let index = this.hash(key);
+  if(!this.buckets[index]) return null;
+  else {
+    let currentNode = this.buckets[index];
+    while (currentNode) {
+      if (currentNode.key === key) return currentNode.value;
+      currentNode = currentNode.next;
+    }
+    return null;
+  }
+};
+
+var myHT = new HashTable(20);
+
+myHT.insert('01/01/1999', 'New York Times');
+myHT.insert('01/02/1999', 'New York Times');
+myHT.insert('04/01/2000', 'Wall Street Journal');
+myHT.insert('01/01/2000 WST', 'Wall Street Journal')
+
+//console.log(myHT);
+//console.log(myHT.get('01/01/1999'));  //prints New York Times
+console.log(myHT.get('01/01/2000 WST'));
+
