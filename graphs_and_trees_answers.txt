@@ -1,0 +1,258 @@
+EXERCISES
+
+1. What is a binary tree and what makes it unique to other trees?
+
+A: It's a data structure that holds individual data in nodes, and those nodes are arranged like an upside-down tree, with a 'root' node at the top. Each node can have a left and/or right child node (2 children max, each). Binary trees are arranged so that numerical data, as it's inserted, will be placed consistently as a left or right child of existing nodes based on if it's of higher or lower value than the root node and lower nodes (until there's a free space available). Because they follow a consistent pattern, they can be searched with a 'go right/go left' logic. 
+
+2. What is a heuristic?
+
+A: Using a best guess vs. calculating ALL possible paths to solve a problem sooner (which may sacrifice accuracy).
+
+3. What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+A: profiling
+
+4. What is the difference between a depth-first search and a breadth-first search?
+
+A: Depth-first searches traverse a binary tree down the branches in order (a few ways to do this).
+
+Breadth-first searches traverse from root then across levels of nodes, finishing each level before going down to the next level.
+
+5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+A: Undirected: the space between two nodes can go either way, like a 2-way street; A-cyclic: nodes don't form a loop, and will dead-end; unweighted: no assignement of travel-time/cost between nodes.
+
+Mostly likely this kind of graph is a tree.
+
+6. What kind of graph is a binary search tree?
+
+A: Undirected, A-cyclic, Unweighted.
+
+
+
+PROGRAMMING QUESTIONS
+
+1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+(pseudocode is before the search function)
+
+
+function BST(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+};
+
+BST.prototype.insert = function(value) {
+  if (value <= this.value) {
+    if (!this.left) this.left = new BST(value); //if no child node here add value here
+    else this.left.insert(value); //run method on next available node to left
+  }
+  else if (value > this.value) {
+    if (!this.right) this.right = new BST(value);
+    else this.right.insert(value);
+  }
+};
+
+
+/*PSEUDOCODE
+FUNCTION contains(value)
+IF value === this.value RETURN true
+ELSE IF value < this.value
+  IF no left child RETURN false
+  ELSE call FUNCTION contains(value) on left child
+  ENDIF
+ELSE IF value > this.value 
+  IF no right child RETURN false
+  ELSE call FUNCTION contains(value) on right child
+  ENDIF
+ENDIF
+*/
+
+BST.prototype.contains = function(value) {
+  //if not === value will be either < or >
+  if (value === this.value) return true;
+  else if (value < this.value) {
+    if (!this.left) return false;
+    else return this.left.contains(value);
+  }
+  else if (value > this.value) {
+    if (!this.right) return false;
+    else return this.right.contains(value);
+  }
+};
+
+var bst = new BST(50);
+//console.log(bst);
+bst.insert(30);
+bst.insert(70);
+bst.insert(100);
+bst.insert(60);
+bst.insert(59);
+bst.insert(20);
+bst.insert(45);
+bst.insert(35);
+bst.insert(85);
+bst.insert(105);
+bst.insert(10);
+
+//console.log(bst.left.right);
+console.log(bst.contains(99));
+
+
+
+2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+***I'm VERY excited that I got this working on my own with a mix of my own logic and some online examples of how to execute that logic in JS. My brain is melted. But I feel like I understand what each line is doing, except in the findDistanceBetweenRootAndTwoNodes function where there are several RETURN -1 statements. What does that do & is it needed?
+
+
+FUNCTION distanceFromRoot(root, value)
+  IF no root, RETURN undefined
+  IF this.value === value RETURN 0
+
+  IF value < this.value
+    RETURN 1 + this.left.distanceFromRoot(this.left, value)--recursive to traverse L branch adding 1 each time
+  ELSE if value > this.value
+    RETURN 1 + this.right.distanceFromRoot(this.right, value)
+  ENDIF
+
+FUNCTION findLowestCommonParent (value1, value2)
+  IF this.value === null RETURN null;
+  IF this.value > value1 && this.value > value2
+    RETURN this.left.findLowestCommonParent(value1, value2);
+  ELSE IF this.value < value1 && this.value < value2  
+    RETURN this.right.findLowestCommonParent(value1, value2)
+  ENDIF
+  RETURN this.value
+
+FUNCTION findDistanceBetweenRootAndTwoNodes(root, value1, value2)
+  INIT commonParent = CALL findLowestCommonParent(value1, value2)
+
+  **HONESTLY I DON'T UNDERSTAND THE REASONS FOR THE LINES RETURNING -1**
+
+  RETURN distanceFromRoot(commonParent, value1) + distanceFromRoot(commonParent + value2)
+
+
+
+FUNCTION findDistanceBetweenAnyTwoNodes(root, value1, value2)
+  INIT rootToParent = this.distanceFromRoot(root, this.findLowestCommonParent(root, value1, value2) 
+  RETURN this.findDistanceBetweenRootAndTwoNodes(root, value1, value2) - rootToParent * 2);
+
+  
+
+function BST(value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+}
+
+function BinarySearchTree() {
+  this.root = null;
+}
+
+BST.prototype.insert = function(value) {
+  if (value <= this.value) {
+    if(!this.left) this.left = new BST(value);
+    else this.left.insert(value);
+  }
+  else if (value > this.value) {
+    if (!this.right) this.right = new BST(value);
+    else this.right.insert(value);
+  }
+};
+
+BST.prototype.distanceFromRoot = function(root, value) {
+  if (this.root === null) {
+    return undefined;
+  }
+  if (this.value === value) {
+    return 0;
+  }
+  else {
+    if (value < this.value) {
+      return 1 + this.left.distanceFromRoot(this.left, value);
+    }
+    else if (value > this.value) {
+      return 1 + this.right.distanceFromRoot(this.right, value);
+    }
+  }
+};
+
+
+BST.prototype.findLowestCommonParent = function(value1, value2) {
+  if (this.value === null) {
+    return null;
+  }
+  if (this.value > value1 && this.value > value2) {
+    return this.left.findLowestCommonParent(value1, value2);
+    console.log(this.value);
+  }
+  if (this.value < value1 && this.value < value2) {
+    return this.right.findLowestCommonParent(value1, value2);
+  }
+  return this.value;
+};
+
+
+//I'm not sure what the return -1 statements are for here:
+BST.prototype.findDistanceBetweenRootAndTwoNodes = function(root, value1, value2) {
+  let commonParent = this.findLowestCommonParent(value1, value2);
+
+  if (commonParent === null || commonParent === undefined) { 
+    return -1;
+  }
+  if (this.distanceFromRoot(commonParent, value1) === -1) {
+    return -1;
+  }
+  if (this.distanceFromRoot(commonParent, value2) === -1) {
+    return -1;
+  }
+  return (this.distanceFromRoot(commonParent, value1) + this.distanceFromRoot(commonParent, value2));
+};
+
+
+BST.prototype.findDistanceBetweenAnyTwoNodes = function(root, value1, value2) {
+  let rootToParent = this.distanceFromRoot(root, this.findLowestCommonParent(value1, value2));
+  //console.log(rootToParent);
+  return (this.findDistanceBetweenRootAndTwoNodes(root, value1, value2) - rootToParent*2);
+};
+
+
+
+var bst = new BST(50); //one node, root
+bst.insert(30);
+bst.insert(70);
+bst.insert(100);
+bst.insert(60);
+bst.insert(59);
+bst.insert(20);
+bst.insert(45);
+bst.insert(35);
+bst.insert(85);
+bst.insert(105);
+bst.insert(10);
+
+//console.log(bst.right.right); //works
+//console.log(bst.root); //returns undefined
+//console.log(bst.findLowestCommonParent(59, 85)); //returns 70, works
+//console.log(bst.findLowestCommonParent(10, 60)); //returns 50, works
+
+//console.log(bst.distanceFromRoot(50, 30)); //works, returns 1
+//console.log(bst.findLowestCommonParent(50, 10, 35)); //works, returns 30
+//console.log(bst.findDistanceBetweenRootAndTwoNodes(50, 85, 30)); //sums total distance from root to value1 plus root to value2, need to subtract distance from root to common parent---but correct if lowest common parent is main root (50)
+//console.log(bst.findDistanceBetweenRootAndTwoNodes(50, 10, 35));
+
+//console.log(bst.distanceFromRoot(50, bst.findLowestCommonParent(50, 85, 105))); //gets dist from root to commonParent, need to double and subtract from findDistanceBetweenNodes
+
+
+//console.log(bst.findDistanceBetweenAnyTwoNodes(50, 85, 105)); //returns 2
+//console.log(bst.findDistanceBetweenAnyTwoNodes(50, 59, 100)); //returns 3
+//console.log(bst.findDistanceBetweenAnyTwoNodes(50, 10, 35)); //returns 4
+//console.log(bst.findDistanceBetweenAnyTwoNodes(50, 10, 70)); //returns 4 
+//console.log(bst.findDistanceBetweenAnyTwoNodes(50, 10, 100)); //returns 5
+
+
