@@ -1,0 +1,90 @@
+1. Using proper pseudo-code, describe the following primitive algorithms:
+
+*Making coffee;
+
+FUNCTION grind(beans)
+  INIT grinder
+    WHILE beans.size > 2mm
+    ENDWHILE
+  RETURN grounds
+
+FUNCTION heatWater(water)
+  INIT stoveTemp = 0
+  INIT pot = null 
+  FOR pot, fill with water
+  ENDFOR
+  FOR stoveTemp, turn on stove to high
+    WHILE water < 212*F
+    ENDWHILE
+  ENDFOR turn off stove  
+RETURN hotWater
+
+FUNCTION steepCoffee()
+  INIT carafe
+  LET hotWater = CALL heatWater(water)
+  LET freshGrounds = CALL grind(beans)
+  IF carafe is empty
+    fill with freshGrounds
+    fill will hotWater
+    WHILE time < 6 minutes
+  ENDIF
+RETURN coffee
+
+
+
+*Washing dishes;
+
+I'm never sure with these if (for ex.) dishwasher & soap should be arguments or variables.
+
+FUNCTION washDishes(dishes, dishwasher, soap)
+  IF dishes are dirty/in sink
+    WHILE diswasher has free space
+      FOR each dishes
+        remove from sink
+      IF dishes = cup || glass || bowls
+        place on top rack
+      ELSE IF dishes = silverware
+        place in silverware rack
+      ELSE place on bottom rack
+      END FOR
+    ENDWHILE
+  add soap
+  run dishwasher
+  RETURN dishes
+
+
+*A choice of your own. Potting a plant (any plant, like aloe, not necessarily a pot plant despite function name LOL)
+
+FUNCTION potPlant(plant, soil)
+  INIT pot (which is a variable b/c I have diff sizes of pots)
+  newPot = pot
+    IF plant > pot CALL potPlant(plant, soil)
+      remove plant from pot
+      loosen plant.roots
+      add soil to newPot
+      place plant in newPot
+      WHILE soil depth is > plant.base
+        add soil to newPot
+      ENDWHILE
+    ENDIF
+    water plant 
+    RETURN plant
+  
+
+
+2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+
+*Amazon's searching/ordering/packing/shipping algorithms. Unfair monopoly advantages & working conditions/abuses/ethics aside, they streamlined online shopping and getting packages delivered quickly. There are probably a million algorithms working in there. 
+
+*I waited tables in college for an upscale local restaurant & I think their success was partly based on systems they had in place in each part of the "house." I'm most familiar with the front of the house/servers' area, where we had a very structured system to our workflow. For each table, section of tables, and each task, there was a system in place. For instance, we all had to use the same abbreviation system to write down (on paper, before we entered it into computer system at a later step) customers' orders. Each position at every table had a number, and each table had a number. If I went MIA during a shift, any other server could understand my tables' orders & customers would still get a quality experience.
+
+*Patagonia's commitment to sustainability/care for the environment appeals to exactly the people who want to use their products and wear their clothes: outdoor enthusiasts. The fact that their producst are long-lasting offsets the relatively higher cost and also minimizes trash back into the environment. It seems like that overall philosophy works like an algorithm for them? I imagine they have plenty of systems/algorithms that go into manufacturing and testing (& then marketing).
+
+To parallel the question's comment about Google, Patagonia, as a company, produces more relevant (to me) clothing items like winter coats, so I'm going to go there first when I need a new coat.
+
+
+3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+I'd think efficient algorithms work consistently & in different environments/situations, and remain useful over time (or are easily adaptable). Similar qualities to DRY code. 
+
+Inefficient ones probably work less well over time, as programs grow, and don't hold up as well in a variety of situations. Loose logic, too much guessing, profiling?
