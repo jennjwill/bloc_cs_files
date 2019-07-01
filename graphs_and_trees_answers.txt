@@ -215,10 +215,10 @@ BST.prototype.findDistanceBetweenRootAndTwoNodes = function(root, value1, value2
 };
 
 
-BST.prototype.findDistanceBetweenAnyTwoNodes = function(root, value1, value2) {
-  let rootToParent = this.distanceFromRoot(root, this.findLowestCommonParent(value1, value2));
+BST.prototype.findDistanceBetweenAnyTwoNodes = function(value1, value2) {
+  let rootToParent = this.distanceFromRoot(this.root, this.findLowestCommonParent(value1, value2));
   //console.log(rootToParent);
-  return (this.findDistanceBetweenRootAndTwoNodes(root, value1, value2) - rootToParent*2);
+  return (this.findDistanceBetweenRootAndTwoNodes(this.root, value1, value2) - rootToParent*2);
 };
 
 
