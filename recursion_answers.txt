@@ -1,0 +1,92 @@
+1. Define and compare recursion and iteration.
+
+A: Recursion is when a function calls itself within itself.
+
+Iteration is when a function iterates over a data set, performing some task on each item in the set.
+
+
+2. Name five algorithms that are commonly implemented by recursion.
+
+A: factorial operation, Fibonacci sequence, binary search, merge sort, quick sort
+
+
+3. When should you use recursion, and when should you avoid recursion? Give examples for each.
+
+A: Use recusion when: an algorithm can be defined as a combination of sub-results starting with known cases (like factorial).
+
+Use iteration when: algorithms require a pass over/through a data set--loops are great for running straight through a data set. (good for finding maximum number in a set).
+
+But it's also important to look more closely at the costs of each implementation. Repeating calculations in a recursive function introduces performance concerns.
+
+
+4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
+
+A: 
+*Factorial: fails at negative numbers in both recursive and iterative; 
+
+In recursive, base case must be set (number is ) or 1), then call recursive function returning result times previousFactorial;
+
+In iterative, initializes result to 1 and iterates through set of numbers down to 2, multiplying each result*i, returning final result.
+
+*Maximum: 
+In recursive, you have to set base cases--if numbers is empty=error; and size of data set is 1 returning that one item. Set possibleMaximum to first item in data set; set remainingNumbers to numbers/data set that aren't the first item;
+then call the recursive function, which returns a number from each pass, and compares those numbers, ultimately returning the largest number.
+
+In iterative, it's simpler. The variable is set to the first number in the data set. Loop through the data set, comparing current number to the next number and replacing the larger number as the variable/current number, ultimately returning the largest number after finishing the loop.
+
+*Fibonacci:
+In recursive, we have base cases (if number is < 1 error, and if number is 1 or 2 return 1). The recursive function is pretty simple, calling the function on each number-2 and number-1, then returning the sum of (all of) those tumbers.
+
+In iterative, we set variables to track the two numbers at work.
+The loop starts at 3 (since 2 and 1 would return 1), adding the last two numbers to get the next number and so on. The variable returned holds the total sum.
+
+
+
+5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
+
+A:
+
+var array1 = [1,2,[3,4,5],6,[7,8]];
+
+function countAllElements(collection) {
+  if(collection.length) {
+    if(typeof collection[0] === "object") {
+      return countAllElements(collection[0]) + countAllElements(collection.slice(1));
+    } 
+    else {
+      return 1 + countAllElements(collection.slice(1));
+    }
+  }
+    else {
+      return 0;
+    }
+};
+
+console.log(countAllElements(array1));
+
+
+
+6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+A:
+
+var word1 = "tacocat"
+
+function isPalindrome(word) {
+  let stringLength = word.length;
+  if(stringLength === 0 || stringLength === 1) {
+    return true;
+  }
+  if (word[0] === word[stringLength -1]) { //if 1st letter === last letter
+    return isPalindrome(word.slice(1, stringLength -1)); //slice after 1st in list to last 
+  }
+  return false;
+};
+
+console.log(isPalindrome(word1));
+
+
+
+7. Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". Explain why this behavior exhibits properties of recursion.
+
+A: It's repeated within itself. By googling recursion, I asked google to find recursion for me and I got it: google offering to look up recursion for me. I get the same message if I click on the link inside their question, "Did you mean: recursion?"
