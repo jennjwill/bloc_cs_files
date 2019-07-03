@@ -1,0 +1,80 @@
+1. Implement a solution for bubble sort.
+
+A: 
+
+var data = [5, 3, 1, 4, 2];
+
+function bubbleSort(collection) {
+  let swapped;
+  do {
+  swapped = false; 
+    for (let i=0; i < collection.length - 1; i++) {
+      if (collection[i] > collection[i + 1]) {
+        let temp = collection[i];
+        collection[i] = collection[i + 1];
+        collection[i + 1] = temp;
+        swapped = true;
+      }
+    }
+  } while(swapped); 
+  return collection;
+};
+
+
+console.log(bubbleSort(data));
+
+
+
+2. Write pseudocode for quicksort.
+
+A:
+
+FUNCTION quicksort(array, low, high)
+  IF low < high
+    pivotLocation = CALL partition(array, low, high)
+    CALL quicksort(array, low, pivotLocation)
+    CALL quicksort(array, pivotLocation, high)
+  END IF
+END FUNCTION
+
+FUNCTION partition(array, low, high)
+  pivot = array[low]
+  leftWall = low
+  FOR i = (low + 1) to high
+    IF array[i] < pivot THEN
+      array[i] = array[leftWall]
+      leftWall = leftWall + 1
+    ENDIF
+  pivot = array[leftWall]
+  END FOR
+  RETURN leftWall
+END FUNCTION
+
+
+
+3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
+
+A:
+
+Bubble sort, Selection sort and Insertion sort all have worst-case complexities of O(n^2). Bubble sort and Selection sort both (in worst cases) will have to go through and look at every element every time (n, n times).
+
+Insertion sort, in the worst case, will have to move/shift each of n elements n positions each insertion.
+
+Merge sort has O(n log n) as its time complexity, which is more efficient than O(n^2).
+
+Quicksort has O(n^2) as worst case, but O(n log n) as best/average. Quicksort leans towards best/average case b/c when you choose the pivot point randomly, it tends to be on the efficient side. It's efficient for very large data sets.
+
+Both Merge & Quicksort use recursion and sort smaller arrays.
+
+Merge sort sorts and merges smaller arrays, and Quicksort is a divide and conquer method.
+
+
+
+
+4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+A:
+
+Bucket sort works by distributing the elements of an array into a number of buckets. Each bucket is sorted individually (using another sorting algoritm), or recursively (using bucket sort algorithm).
+
+It's ideal when input is uniformly distributed over the collection.
