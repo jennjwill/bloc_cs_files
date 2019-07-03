@@ -24,15 +24,55 @@ A: 3
 
 A: Linear. You can't search an unsorted list with a binary search. (Though you could sort it first.)
 
+
 6. Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
 
-A: Binary. It will be faster more often than not (statistically, though sometimes the search item might be at the very beginning of the list), because we're not having to look at every item in the list one-by-one, and are splitting the search group in half each iteration.
+A: Binary. It will be faster more often than not (statistically, though sometimes the search item might be at the very beginning of the list), because we're not having to look at every item in the list one-by-one, and are splitting the search group in half each iteration. (Divide & conquer)
 
 
 PROGRAMMING
 
 1. You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
 
-break down A-L-B-A-T-R for consecutive searches/NOPE b/c it's already indexed properly so just use the index
+var coll = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+var dictionary = ["aardvark", "about", "albatross", "anteater", "arachnid", "axiom"];
+
+function binarySearch(collection, value) {
+  let low = 0;
+  let high = collection.length-1;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+    if (collection[mid] > value) {
+      high = mid - 1;
+    }
+    else if (collection[mid] < value) {
+      low = mid + 1;
+    }
+    else {
+      return mid;
+    }
+  }
+};
+
+//console.log(binarySearch(coll, "h"));
+console.log(binarySearch(dictionary, "albatross"));
+//console.log(binarySearch(dictionary, "aardvark"));
+
+
 
 2. You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
+
+A:
+
+var fishbowl = ["blue-spotted", "blue-spotted", "brown", "yellow-striped", "yellow-spotted", "white-spotted", "green", "green"];
+
+function linearSearch(collection, target) {
+  for (let i=0; i < collection.length; i++) {
+    if (collection[i] === target) return i;
+  }
+  return "item not found";
+};
+
+console.log(linearSearch(fishbowl, "white-spotted"));
+//console.log(linearSearch(fishbowl, "blue"));
