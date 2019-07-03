@@ -1,0 +1,38 @@
+SHORT ANSWER
+
+1. What is a real-life scenario that uses linear search?
+
+A: Looking through a list of movies at my theater to see if the one I want to see is playing.
+
+
+2. What is a real-life scenario that uses binary search?
+
+A: Looking to find something in an old phone book, (paper)dictionary, or organizing file folders aphabetically. All our old alphabetical searches.
+
+
+3. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using linear search?
+
+A: 7
+
+
+4. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using binary search?
+
+A: 3
+
+
+5. Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+A: Linear. You can't search an unsorted list with a binary search. (Though you could sort it first.)
+
+6. Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+A: Binary. It will be faster more often than not (statistically, though sometimes the search item might be at the very beginning of the list), because we're not having to look at every item in the list one-by-one, and are splitting the search group in half each iteration.
+
+
+PROGRAMMING
+
+1. You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
+
+break down A-L-B-A-T-R for consecutive searches/NOPE b/c it's already indexed properly so just use the index
+
+2. You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
